@@ -10,12 +10,12 @@ public class Tuple<A, B> {
         snd = b;
     }
 
-    public static <A,B> Tuple<A,B> tuple(A a, B b){
+    public static <A,B> Tuple<A,B> of(A a, B b){
         return new Tuple<>(a,b);
     }
 
     public Tuple<B,A> flip(){
-        return tuple(snd,fst);
+        return of(snd,fst);
     }
 
     public A fst() {
@@ -29,5 +29,20 @@ public class Tuple<A, B> {
     @Override
     public String toString() {
         return "(" + fst + "," + snd + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+ 
+        if(o instanceof Tuple tup){
+            return fst.equals(tup.fst) && snd.equals(tup.snd);
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
     }
 }

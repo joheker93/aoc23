@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import aoc.days.day1.Day1;
 import aoc.days.day2.Day2;
+import aoc.days.day3.Day3;
 import aoc.utils.Tuple;
 
 public class Solver {
@@ -19,6 +20,7 @@ public class Solver {
     static {
         DAYS.put(1, new Day1());
         DAYS.put(2, new Day2());
+        DAYS.put(3, new Day3());
 
     }
 

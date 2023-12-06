@@ -45,7 +45,7 @@ public class Day2 implements Day<Map<Tuple<Integer, Integer>, Map<Colour, Intege
 
                     gameMap.merge(Colour.get(col), value, Integer::sum);
                 }
-                games.put(new Tuple<Integer, Integer>(game, setc++), gameMap);
+                games.put(Tuple.of(game, setc++), gameMap);
             }
         }
         return games;

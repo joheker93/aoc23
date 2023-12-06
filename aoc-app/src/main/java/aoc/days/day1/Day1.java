@@ -56,8 +56,8 @@ public class Day1 implements Day<List<String>, Integer> {
     public Map<Integer, Integer> getDigits(String str) {
         Map<Integer, Tuple<String, String>> map = new HashMap<>();
 
-        for (int x : Utils.range(1, 9)) {
-            map.put(x, new Tuple<String, String>(String.valueOf(x), Utils.lexValue(x)));
+        for (int x : Utils.range(1, 10)) {
+            map.put(x, Tuple.of(String.valueOf(x), Utils.lexValue(x)));
         }
 
         Map<Integer, Integer> found = new HashMap<>();

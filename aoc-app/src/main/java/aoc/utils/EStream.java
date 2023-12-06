@@ -87,6 +87,13 @@ public class EStream<T> {
 
     }
 
+    public EStream<T> takeWhile(Predicate<T> pred) {
+        var l = _stream.toList();
+        _stream = l.stream();
+
+        return stream(l.stream().takeWhile(pred));
+    }
+
     public EStream<T> drop(int n) {
         var l = _stream.toList();
         if (n > l.size()) {
@@ -95,6 +102,13 @@ public class EStream<T> {
         _stream = l.stream();
 
         return stream(l.subList(n, l.size()));
+    }
+
+    public EStream<T> dropWhile(Predicate<T> pred) {
+        var l = _stream.toList();
+        _stream = l.stream();
+
+        return stream(l.stream().dropWhile(pred));
     }
 
     public T head() {
@@ -156,22 +170,22 @@ public class EStream<T> {
 
     public T foldWith(BinaryOperator<T> f) {
         var l = _stream.toList();
-    
+
         _stream = l.stream();
         return l.stream().skip(1).reduce(l.get(0), f);
 
     }
 
-    public EStream<Tuple<Integer,T>> enumerate(){
-        
+    public EStream<Tuple<Integer, T>> enumerate() {
+
         var l = _stream.toList();
-        var range = Utils.range(1,l.size());
+        var range = Utils.range(1, l.size());
         _stream = l.stream();
 
-        return stream(range.stream().map(x -> new Tuple<>(x,l.get(x-1))));
+        return stream(range.stream().map(x -> new Tuple<>(x, l.get(x - 1))));
     }
 
-    public <R> EStream<R> provide(Function<T,R> f){
+    public <R> EStream<R> provide(Function<T, R> f) {
         return stream(_stream.map(t -> f.apply(t)));
     }
 

@@ -6,6 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
+        public static enum Colour {
+            RED,GREEN,BLUE;
+
+            public static Colour get(String s){
+                if(s.equals("red")){
+                    return RED;
+                }
+                if(s.equals("green")){
+                    return GREEN;
+                }
+                return BLUE;
+            }
+        }
+
         private static Map<Integer, String> LEX_MAP = new HashMap<>();
 
         static {

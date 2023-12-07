@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import aoc.days.day1.Day1;
 import aoc.days.day2.Day2;
 import aoc.days.day3.Day3;
+import aoc.days.day4.Day4;
+import aoc.days.day5.Day5;
 import aoc.utils.Tuple;
 
 public class Solver {
@@ -21,7 +23,8 @@ public class Solver {
         DAYS.put(1, new Day1());
         DAYS.put(2, new Day2());
         DAYS.put(3, new Day3());
-
+        DAYS.put(4, new Day4());
+        DAYS.put(5, new Day5());
     }
 
     public static void start() throws IOException {

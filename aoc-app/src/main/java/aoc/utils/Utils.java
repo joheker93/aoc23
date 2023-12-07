@@ -39,6 +39,10 @@ public class Utils {
         return Integer.parseInt(str);
     }
 
+    public static Long stol(final String str) {
+        return Long.parseLong(str);
+    }
+
     public static boolean stob(final String str) {
         return Boolean.parseBoolean(str);
     }
@@ -57,6 +61,14 @@ public class Utils {
     public static List<Integer> range(int start, int stop) {
         List<Integer> l = new ArrayList<>();
         for (int i = start; i < stop; i++) {
+            l.add(i);
+        }
+        return l;
+    }
+
+    public static List<Long> range(long start, long stop) {
+        List<Long> l = new ArrayList<>();
+        for (long i = start; i < stop; i++) {
             l.add(i);
         }
         return l;
@@ -100,11 +112,11 @@ public class Utils {
                     continue;
                 }
 
-                if(r == pos.fst() && c == pos.snd()){
+                if (r == pos.fst() && c == pos.snd()) {
                     continue;
                 }
 
-                neighbours.add(new Tuple<>(r,c));
+                neighbours.add(new Tuple<>(r, c));
 
             }
         }

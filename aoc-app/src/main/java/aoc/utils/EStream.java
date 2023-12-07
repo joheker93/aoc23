@@ -64,6 +64,10 @@ public class EStream<T> {
         return new EStream<K>(col.stream());
     }
 
+    public static <K> EStream<K> stream(K[] arr){
+        return new EStream<K>(new ArrayList<>(Arrays.asList(arr)));
+    }
+
     public EStream<String> split(String regex) {
         return stream(Arrays.stream(_in.split(regex)));
     }
@@ -183,10 +187,6 @@ public class EStream<T> {
         _stream = l.stream();
 
         return stream(range.stream().map(x -> new Tuple<>(x, l.get(x - 1))));
-    }
-
-    public <R> EStream<R> provide(Function<T, R> f) {
-        return stream(_stream.map(t -> f.apply(t)));
     }
 
 }

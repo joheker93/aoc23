@@ -5,13 +5,13 @@ import java.io.IOException;
 import aoc.utils.Tuple;
 
 public interface Day<T, R> {
-    T parseA(String input) throws IOException;
-
     R solveA(T parsedInput);
 
-    T parseB(String input) throws IOException;
-
     R solveB(T parsedInput);
+
+    T parseA(String input) throws IOException;
+
+    T parseB(String input) throws IOException;
 
     default Tuple<Object, Object> solve(String input) throws IOException {
 

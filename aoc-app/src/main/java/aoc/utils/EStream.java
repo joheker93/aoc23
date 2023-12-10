@@ -39,6 +39,10 @@ public class EStream<T> {
         return _stream.toList();
     }
 
+    public List<T> toModList(){
+        return new ArrayList<>(_stream.toList());
+    }
+
     public static <K> EStream<K> stream(Stream<K> stream) {
         return new EStream<K>(stream);
     }
@@ -145,6 +149,12 @@ public class EStream<T> {
         var s = l.stream().mapToInt(x -> (int) x).max().orElse(Integer.MAX_VALUE);
         _stream = l.stream();
         return s;
+    }
+
+    public int count(){
+        var l = _stream.toList();
+        _stream = l.stream();
+        return (int) l.stream().count();
     }
 
     public <B> EStream<B> map(Function<T, B> f) {

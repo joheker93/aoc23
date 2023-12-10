@@ -36,7 +36,7 @@ public class Utils {
     }
 
     public static int stoi(final String str) {
-        return Integer.parseInt(str);
+        return Integer.parseInt(str.trim());
     }
 
     public static Long stol(final String str) {

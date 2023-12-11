@@ -78,7 +78,9 @@ public class Utils {
         return LEX_MAP.get(x);
     }
 
-    public static <T, K> List<Tuple<T, K>> zip(List<T> l1, List<K> l2) {
+    public static <T, K> List<Tuple<T, K>> zip(List<T> list1, List<K> list2) {
+        var l1 = new ArrayList<>(list1);
+        var l2 = new ArrayList<>(list2);
         if (l1.size() == 0) {
             return new ArrayList<>();
         }

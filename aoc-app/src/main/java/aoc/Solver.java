@@ -14,6 +14,8 @@ import aoc.days.day3.Day3;
 import aoc.days.day4.Day4;
 import aoc.days.day5.Day5;
 import aoc.days.day6.Day6;
+import aoc.days.day7.Day7;
+import aoc.days.day8.Day8;
 import aoc.utils.Tuple;
 
 public class Solver {
@@ -27,6 +29,8 @@ public class Solver {
         DAYS.put(4, new Day4());
         DAYS.put(5, new Day5());
         DAYS.put(6, new Day6());
+        DAYS.put(7, new Day7());
+        DAYS.put(8, new Day8());
     }
 
     public static void start() throws IOException, InterruptedException {

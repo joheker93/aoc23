@@ -18,7 +18,6 @@ public class Day8 implements Day<Map<String, Tuple<String, String>>, Long> {
     public Long solveA(Map<String, Tuple<String, String>> parsedInput) {
         Map<String, Tuple<String, String>> network = new HashMap<>(parsedInput);
 
-        System.out.println(parsedInput);
         String goal = "ZZZ";
         String current = "AAA";
 

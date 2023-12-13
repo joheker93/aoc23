@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import aoc.days.day1.Day1;
+import aoc.days.day10.Day10;
+import aoc.days.day11.Day11;
 import aoc.days.day2.Day2;
 import aoc.days.day3.Day3;
 import aoc.days.day4.Day4;
@@ -16,6 +18,7 @@ import aoc.days.day5.Day5;
 import aoc.days.day6.Day6;
 import aoc.days.day7.Day7;
 import aoc.days.day8.Day8;
+import aoc.days.day9.Day9;
 import aoc.utils.Tuple;
 
 public class Solver {
@@ -31,6 +34,10 @@ public class Solver {
         DAYS.put(6, new Day6());
         DAYS.put(7, new Day7());
         DAYS.put(8, new Day8());
+        DAYS.put(9, new Day9());
+        DAYS.put(10, new Day10());
+        DAYS.put(11, new Day11());
+
     }
 
     public static void start() throws IOException, InterruptedException {

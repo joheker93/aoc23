@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 public class Utils {
     public static enum Colour {
@@ -102,6 +103,30 @@ public class Utils {
 
     }
 
+    public static <T, K,R> List<R> zipWith(BiFunction<T,K,R> f, List<T> list1, List<K> list2) {
+        var l1 = new ArrayList<>(list1);
+        var l2 = new ArrayList<>(list2);
+        if (l1.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        if (l2.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        var x = l1.get(0);
+        var y = l2.get(0);
+        var res = f.apply(x, y);
+
+        l1.remove(0);
+        l2.remove(0);
+
+        var zipped = zipWith(f,l1, l2);
+        zipped.add(0, res);
+        return zipped;
+
+    }
+
     public static <T> List<Tuple<Integer, Integer>> neighbours(int width, int height, Tuple<Integer, Integer> pos) {
         List<Tuple<Integer, Integer>> neighbours = new ArrayList<>();
 
@@ -123,5 +148,16 @@ public class Utils {
             }
         }
         return neighbours;
+    }
+
+    public static void printGrid(char[][] grid) {
+        for (var x : grid) {
+            String str = "";
+            for (char c : x) {
+                str += c;
+            }
+            System.out.println(str);
+        }
+        System.out.println("\n");
     }
 }

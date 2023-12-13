@@ -23,7 +23,6 @@ public class Day8 implements Day<Map<String, Tuple<String, String>>, Long> {
         String current = "AAA";
 
         return search(network, current, List.of(goal));
-
     }
 
     public long search(Map<String, Tuple<String, String>> network, String start, List<String> goals) {

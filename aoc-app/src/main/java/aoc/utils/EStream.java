@@ -196,7 +196,7 @@ public class EStream<T> {
         var range = Utils.range(1, l.size());
         _stream = l.stream();
 
-        return stream(range.stream().map(x -> new Tuple<>(x, l.get(x - 1))));
+        return stream(range.stream().map(x -> Tuple.of(x, l.get(x - 1))));
     }
 
 }

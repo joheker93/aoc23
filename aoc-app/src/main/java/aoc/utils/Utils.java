@@ -92,7 +92,7 @@ public class Utils {
 
         var x = l1.get(0);
         var y = l2.get(0);
-        var tup = new Tuple<>(x, y);
+        var tup = Tuple.of(x, y);
 
         l1.remove(0);
         l2.remove(0);
@@ -143,7 +143,7 @@ public class Utils {
                     continue;
                 }
 
-                neighbours.add(new Tuple<>(r, c));
+                neighbours.add(Tuple.of(r, c));
 
             }
         }

@@ -1,5 +1,7 @@
 package aoc;
 
+import static aoc.utils.EStream.stream;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.util.Map.Entry;
 import aoc.days.day1.Day1;
 import aoc.days.day10.Day10;
 import aoc.days.day11.Day11;
+import aoc.days.day12.Day12;
 import aoc.days.day2.Day2;
 import aoc.days.day3.Day3;
 import aoc.days.day4.Day4;
@@ -37,11 +40,19 @@ public class Solver {
         DAYS.put(9, new Day9());
         DAYS.put(10, new Day10());
         DAYS.put(11, new Day11());
+        DAYS.put(12, new Day12());
 
     }
 
-    public static void start() throws IOException, InterruptedException {
-        for (final Entry<Integer, Day<?, ?>> entry : DAYS.entrySet()) {
+    public static void start(boolean latest) throws IOException, InterruptedException {
+        Map<Integer, Day<?, ?>>entries = new HashMap<>();
+        if(latest){
+            int latestDay = stream(DAYS.keySet()).max();
+            entries.put(latestDay, DAYS.get(latestDay));
+        } else {
+            entries = DAYS;
+        }
+        for (final Entry<Integer, Day<?, ?>> entry : entries.entrySet()) {
 
             final Day<?, ?> sol = entry.getValue();
             final int day = entry.getKey();

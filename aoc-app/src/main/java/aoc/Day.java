@@ -24,7 +24,7 @@ public interface Day<T, R> {
         final R solB = solveB(parsedDataB);
         long t3 = System.currentTimeMillis();
 
-        return new Tuple<>(solA + " (" + (t2 - t1) + " ms)", solB + " (" + (t3 - t2) + " ms)");
+        return Tuple.of(solA + " (" + (t2 - t1) + " ms)", solB + " (" + (t3 - t2) + " ms)");
 
     }
 

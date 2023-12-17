@@ -1,6 +1,7 @@
 package com.aoc.app;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import aoc.Solver;
 
@@ -17,7 +18,14 @@ public class App {
 
         Thread t = new Thread(() -> {
             try {
-                Solver.start();
+                if(Arrays.asList(args).contains("-latest")){
+                    System.out.println("Running latest day");
+                    Solver.start(true);
+
+                } else {
+                    System.out.println("Running all days");
+                    Solver.start(false);
+                }
             } catch (IOException | InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import aoc.Day;
 import aoc.utils.Tuple;
+import aoc.utils.Utils;
 
 public class Day11 implements Day<char[][], Long> {
     
@@ -21,11 +22,11 @@ public class Day11 implements Day<char[][], Long> {
     
     private long solve(char[][] universe, long expansion) {
         List<Integer> expandedRows = findExpansions(universe);
-        List<Integer> expandedCols = findExpansions(rotateRight(universe));
+        List<Integer> expandedCols = findExpansions(Utils.rotateRight(universe));
     
         List<Tuple<Integer,Integer>> galaxies = galaxies(universe);
         long res = 0;
-        
+
         for(int i = 0;i < galaxies.size();i++){
             for(int j = i+1;j<galaxies.size();j++){
                 var p1 = galaxies.get(i);
@@ -80,21 +81,6 @@ public class Day11 implements Day<char[][], Long> {
             }
         }
         return true;
-    }
-
-    public char[][] rotateRight(char[][] array) {
-        int rows = array.length;
-        int cols = array[0].length;
-
-        char[][] rotated = new char[cols][rows];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                rotated[j][rows - 1 - i] = array[i][j];
-            }
-        }
-
-        return rotated;
     }
 
     private List<Integer> findExpansions(char[][] universe) {

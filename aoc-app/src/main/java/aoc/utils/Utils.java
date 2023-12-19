@@ -150,6 +150,21 @@ public class Utils {
         return neighbours;
     }
 
+    public static char[][] rotateRight(char[][] array) {
+        int rows = array.length;
+        int cols = array[0].length;
+
+        char[][] rotated = new char[cols][rows];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                rotated[j][rows - 1 - i] = array[i][j];
+            }
+        }
+
+        return rotated;
+    }
+
     public static void printGrid(char[][] grid) {
         for (var x : grid) {
             String str = "";

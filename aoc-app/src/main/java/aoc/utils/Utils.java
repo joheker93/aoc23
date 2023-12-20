@@ -175,4 +175,17 @@ public class Utils {
         }
         System.out.println("\n");
     }
+
+    public static int gridDiff(char[][] c1, char[][] c2) {
+        int diffs = 0;
+        for (int i = 0; i < c1.length; i++) {
+            for (int j = 0; j < c1[i].length; j++) {
+                if (c1[i][j] != c2[i][j]) {
+                    diffs++;
+                }
+            }
+        }
+
+        return diffs;
+    }
 }

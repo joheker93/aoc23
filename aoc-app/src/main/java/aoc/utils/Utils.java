@@ -103,7 +103,7 @@ public class Utils {
 
     }
 
-    public static <T, K,R> List<R> zipWith(BiFunction<T,K,R> f, List<T> list1, List<K> list2) {
+    public static <T, K, R> List<R> zipWith(BiFunction<T, K, R> f, List<T> list1, List<K> list2) {
         var l1 = new ArrayList<>(list1);
         var l2 = new ArrayList<>(list2);
         if (l1.size() == 0) {
@@ -121,7 +121,7 @@ public class Utils {
         l1.remove(0);
         l2.remove(0);
 
-        var zipped = zipWith(f,l1, l2);
+        var zipped = zipWith(f, l1, l2);
         zipped.add(0, res);
         return zipped;
 
@@ -188,4 +188,10 @@ public class Utils {
 
         return diffs;
     }
+
+    public static record Point(int x, int y) {
+        static Point of(int x, int y) {
+            return new Point(x, y);
+        }
+    };
 }

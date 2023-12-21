@@ -2,17 +2,12 @@ package aoc.days.day17;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-
 import aoc.Day;
 import aoc.utils.Tuple;
 import aoc.utils.Utils;
@@ -55,34 +50,6 @@ public class Day17 implements Day<Graph<Point>, Integer> {
         System.out.println(seq);
         return null;
     }
-
-    // 1 S ← empty sequence
-    // 2 u ← target
-    // 3 if prev[u] is defined or u = source: // Do something only if the vertex is
-    // reachable
-    // 4 while u is defined: // Construct the shortest path with a stack S
-    // 5 insert u at the beginning of S // Push the vertex onto the stack
-    // 6 u ← prev[u]
-
-    // 1 function Dijkstra(Graph, source):
-    // 2
-    // 3 for each vertex v in Graph.Vertices:
-    // 4 dist[v] ← INFINITY
-    // 5 prev[v] ← UNDEFINED
-    // 6 add v to Q
-    // 7 dist[source] ← 0
-    // 8
-    // 9 while Q is not empty:
-    // 10 u ← vertex in Q with min dist[u]
-    // 11 remove u from Q
-    // 12
-    // 13 for each neighbor v of u still in Q:
-    // 14 alt ← dist[u] + Graph.Edges(u, v)
-    // 15 if alt < dist[v]:
-    // 16 dist[v] ← alt
-    // 17 prev[v] ← u
-    // 18
-    // 19 return dist[], prev[]
 
     private Tuple<Map<Vertice<Point>, Integer>, Map<Vertice<Point>, Vertice<Point>>> sp(Graph<Point> graph,
             Vertice<Point> source) {

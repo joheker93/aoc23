@@ -207,6 +207,7 @@ public class Utils {
         }
     };
 
+    // Move to own class
     public static class Graph<T>{
         Set<Edge<T>> edges;
         Set<Vertice<T>> vertices; 

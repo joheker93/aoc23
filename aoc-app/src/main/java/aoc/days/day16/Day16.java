@@ -10,15 +10,15 @@ import java.util.function.BiFunction;
 
 import aoc.Day;
 import aoc.utils.Utils;
-import aoc.utils.Utils.Point;
+import aoc.utils.Point;
 
 public class Day16 implements Day<char[][], Integer> {
 
     static final BiFunction<Point, String, Point> NEXT_POS = (p, s) -> switch (s) {
-        case "Right" -> Point.of(p.x(), p.y() + 1);
-        case "Left" -> Point.of(p.x(), p.y() - 1);
-        case "Up" -> Point.of(p.x() - 1, p.y());
-        case "Down" -> Point.of(p.x() + 1, p.y());
+        case "Right" -> Point.of(p.x, p.y + 1);
+        case "Left" -> Point.of(p.x, p.y - 1);
+        case "Up" -> Point.of(p.x - 1, p.y);
+        case "Down" -> Point.of(p.x + 1, p.y);
         default -> throw new IllegalArgumentException("Unexpected value: " + s);
     };
 
@@ -87,7 +87,7 @@ public class Day16 implements Day<char[][], Integer> {
             return;
         }
 
-        if (nextEnergy != null && nextEnergy.contains(b.direction) && grid[nextPos.x()][nextPos.y()] == '.') {
+        if (nextEnergy != null && nextEnergy.contains(b.direction) && grid[nextPos.x][nextPos.y] == '.') {
             // already walked here, scram
             beams.remove(b);
             return;
@@ -95,7 +95,7 @@ public class Day16 implements Day<char[][], Integer> {
 
         b.pos = nextPos;
 
-        if (grid[nextPos.x()][nextPos.y()] == '/') {
+        if (grid[nextPos.x][nextPos.y] == '/') {
             if (b.direction == "Right") {
                 b.direction = "Up";
             } else if (b.direction == "Left") {
@@ -106,7 +106,7 @@ public class Day16 implements Day<char[][], Integer> {
                 b.direction = "Left";
             }
         }
-        if (grid[nextPos.x()][nextPos.y()] == '\\') {
+        if (grid[nextPos.x][nextPos.y] == '\\') {
             if (b.direction == "Right") {
                 b.direction = "Down";
             } else if (b.direction == "Left") {
@@ -118,7 +118,7 @@ public class Day16 implements Day<char[][], Integer> {
             }
         }
 
-        if (grid[nextPos.x()][nextPos.y()] == '-') {
+        if (grid[nextPos.x][nextPos.y] == '-') {
             if (b.direction == "Up" || b.direction == "Down") {
                 beams.remove(b);
                 beams.addLast(new Beam("Left", nextPos, b.beam + 1));
@@ -126,7 +126,7 @@ public class Day16 implements Day<char[][], Integer> {
             }
         }
 
-        if (grid[nextPos.x()][nextPos.y()] == '|') {
+        if (grid[nextPos.x][nextPos.y] == '|') {
             if (b.direction == "Left" || b.direction == "Right") {
                 beams.remove(b);
                 beams.addLast(new Beam("Up", nextPos, b.beam + 1));

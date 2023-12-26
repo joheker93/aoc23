@@ -35,7 +35,7 @@ public class Day12 implements Day<List<Tuple<String, List<Integer>>>, Long> {
     public long solver(String sequence, List<Integer> group, int posInSeq, int uniq, int currentGroupCtr,
             Map<Triplet<Integer, Integer, Integer>, Long> memo, int memoHash) {
 
-        Triplet<Integer, Integer, Integer> key = Triplet.of(posInSeq, currentGroupCtr, uniq, memoHash);
+        Triplet<Integer, Integer, Integer> key = Triplet.of(posInSeq, currentGroupCtr, uniq);
 
         var k = memo.get(key);
         if (k != null) {

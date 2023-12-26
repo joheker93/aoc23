@@ -1,120 +1,101 @@
 package aoc.days.day17;
 
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
+
 import aoc.Day;
-import aoc.utils.Tuple;
-import aoc.utils.Utils;
-import aoc.utils.Utils.Graph;
-import aoc.utils.Utils.Point;
-import aoc.utils.Utils.Vertice;
 
-public class Day17 implements Day<Graph<Point>, Integer> {
+public class Day17 implements Day<int[][], Integer> {
 
+    static int minHeatLoss = Integer.MAX_VALUE;
+
+    private class State implements Comparable<State> {
+        int heat, x, y, dx, dy;
+
+        public State(int heat, int x, int y, int dx, int dy) {
+            this.heat = heat;
+            this.x = x;
+            this.y = y;
+            this.dx = dx;
+            this.dy = dy;
+        }
+
+        @Override
+        public int compareTo(State other) {
+            return Integer.compare(this.heat, other.heat);
+        }
+    }
+  
     @Override
-    public Integer solveA(Graph<Point> graph) {
-        System.out.println(graph);
-
-        Vertice<Point> source = Vertice.of(Point.of(0, 0));
-        var sp = sp(graph, Vertice.of(Point.of(0, 0)));
-        System.out.println(sp.fst().get(Vertice.of(Point.of(5, 5))));
-
-        LinkedList<Vertice<Point>> seq = new LinkedList<>();
-        Vertice<Point> u = Vertice.of(Point.of(5, 5));
-        if (sp.snd().get(u) != null || u.equals(source)) {
-            while (u != null) {
-                seq.addFirst(u);
-                u = sp.snd().get(u);
-            }
-        }
-
-        char[][] grid = new char[6][6];
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (seq.contains(Vertice.of(Point.of(i, j)))) {
-                    grid[i][j] = 'X';
-                } else {
-                    grid[i][j] = '.';
-                }
-            }
-        }
-
-        Utils.printGrid(grid);
-
-        System.out.println(seq);
-        return null;
+    public Integer solveA(int[][] city) {
+        return minHeatLoss(city,1,3);
     }
 
-    private Tuple<Map<Vertice<Point>, Integer>, Map<Vertice<Point>, Vertice<Point>>> sp(Graph<Point> graph,
-            Vertice<Point> source) {
-        Map<Vertice<Point>, Vertice<Point>> prev = new HashMap<>();
-        Map<Vertice<Point>, Integer> dist = new HashMap<>();
-        Deque<Vertice<Point>> queue = new ArrayDeque<>();
+    private int minHeatLoss(int[][] grid, int minStep, int maxStep) {
+        PriorityQueue<State> queue = new PriorityQueue<>();
+        Set<List<Integer>> seen = new HashSet<>();
 
-        for (Vertice<Point> v : graph.vertices()) {
-            dist.put(v, Integer.MAX_VALUE);
-            queue.add(v);
-        }
+        int[][] directions = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
-        dist.put(source, 0);
+        queue.offer(new State(0, 0, 0, 0, 0));
+
         while (!queue.isEmpty()) {
-            var u = getMinDist(queue, dist);
-            queue.remove(u);
+            State cur = queue.poll();
+            int heat = cur.heat;
+            int x = cur.x;
+            int y = cur.y;
+            int dx = cur.dx;
+            int dy = cur.dy;
 
-            for (var neigh : getNeighs(u, queue, graph)) {
-                int alt = dist.get(u) + graph.getEdgeCost(u, neigh);
-            
+            if (x == grid.length - 1 && y == grid[0].length - 1) {
+                return heat;
+            }
 
-                if (alt < dist.get(neigh)) {
-                    dist.put(neigh, alt);
-                    prev.put(neigh, u);
+            if (seen.contains(Arrays.asList(x, y, dx, dy))) {
+                continue;
+            }
+
+            seen.add(Arrays.asList(x, y, dx, dy));
+
+            for (int[] dir : directions) {
+                int dx2 = dir[0];
+                int dy2 = dir[1];
+                if (dx2 == dx && dy2 == dy || dx2 == -dx && dy2 == -dy) {
+                    continue;
+                }
+
+                int x2 = x;
+                int y2 = y;
+                int h2 = heat;
+
+                for (int i = 1; i <= maxStep; i++) {
+                    x2 += dx2;
+                    y2 += dy2;
+                    if (x2 >= 0 && x2 < grid.length && y2 >= 0 && y2 < grid[0].length) {
+                        h2 += grid[x2][y2];
+                        if (i >= minStep) {
+                            queue.offer(new State(h2, x2, y2, dx2, dy2));
+                        }
+                    }
                 }
             }
         }
-
-        return Tuple.of(dist, prev);
-    }
-
-    private Set<Vertice<Point>> getNeighs(Vertice<Point> u, Deque<Vertice<Point>> queue, Graph<Point> graph) {
-        Set<Vertice<Point>> neighs = new HashSet<>();
-        for (var v : queue) {
-            var edge = graph.getEdge(u, v);
-            if (edge != null) {
-                neighs.add(v);
-            }
-        }
-        return neighs;
-    }
-
-    private Vertice<Point> getMinDist(Deque<Vertice<Point>> queue, Map<Vertice<Point>, Integer> dist) {
-        Vertice<Point> min = null;
-        int minimum = Integer.MAX_VALUE;
-
-        for (var u : queue) {
-            var g = dist.get(u);
-            if (g < minimum) {
-                min = u;
-            }
-        }
-        return min;
+        return -1;
     }
 
     @Override
-    public Integer solveB(Graph<Point> parsedInput) {
-        return null;
+    public Integer solveB(int[][] grid) {
+        return minHeatLoss(grid, 4,10);
 
     }
 
     @Override
-    public Graph<Point> parseA(String input) throws IOException {
+    public int[][] parseA(String input) throws IOException {
 
-        Graph<Point> graph = new Graph<>();
         var lines = input.lines().toList();
         int height = lines.size();
         int width = lines.get(0).length();
@@ -126,42 +107,15 @@ public class Day17 implements Day<Graph<Point>, Integer> {
                 grid[r][c] = val;
             }
         }
-        Point prev = Point.of(0, 0);
-        for (int r = 0; r < height; r++) {
-            for (int c = 0; c < width; c++) {
-                prev = Point.of(r, c);
-                addEdges(r, c, height, width, prev, graph, grid);
-            }
-        }
 
-        return graph;
+        return grid;
 
-    }
-
-    private void addEdges(int r, int c, int height, int width, Point prev, Graph<Point> graph, int[][] grid) {
-        var left = Point.of(r, c - 1);
-        var right = Point.of(r, c + 1);
-        var up = Point.of(r - 1, c);
-        var down = Point.of(r + 1, c);
-
-        if (Utils.withinGrid(left, height, width) && left != prev) {
-            graph.addEdge(Point.of(r, c), left, grid[left.x()][left.y()]);
-        }
-        if (Utils.withinGrid(right, height, width) && right != prev) {
-            graph.addEdge(Point.of(r, c), right, grid[right.x()][right.y()]);
-        }
-        if (Utils.withinGrid(up, height, width) && up != prev) {
-            graph.addEdge(Point.of(r, c), up, grid[up.x()][up.y()]);
-        }
-        if (Utils.withinGrid(down, height, width) && down != prev) {
-            graph.addEdge(Point.of(r, c), down, grid[down.x()][down.y()]);
-        }
     }
 
     @Override
-    public Graph<Point> parseB(String input) throws IOException {
+    public int[][] parseB(String input) throws IOException {
 
-        return null;
+        return parseA(input);
     }
 
 }

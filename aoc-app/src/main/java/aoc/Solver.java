@@ -19,6 +19,7 @@ import aoc.days.day14.Day14;
 import aoc.days.day15.Day15;
 import aoc.days.day16.Day16;
 import aoc.days.day17.Day17;
+import aoc.days.day18.Day18;
 import aoc.days.day2.Day2;
 import aoc.days.day3.Day3;
 import aoc.days.day4.Day4;
@@ -51,6 +52,8 @@ public class Solver {
         DAYS.put(15, new Day15());
         DAYS.put(16, new Day16());
         DAYS.put(17, new Day17());
+        DAYS.put(18, new Day18());
+
 
 
     }
